@@ -28,7 +28,7 @@ export default async function handler(req, res) {
       year++
     ) {
       const batchStart = new Date(year, 0, 1); // Start from Jan 1st of the year
-      const batchEnd = new Date(year, 11, 31); // End on Dec 31st of the year
+      let batchEnd = new Date(year, 11, 31); // End on Dec 31st of the year
 
       // If the batchEnd is in the future, set it to the current date
       if (batchEnd > new Date()) {
