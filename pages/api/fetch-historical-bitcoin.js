@@ -21,28 +21,24 @@ export default async function handler(req, res) {
   const fetchInBatches = async (start, end) => {
     const startDate = new Date(start);
     const endDate = new Date(end);
-
-    for (
-      let year = startDate.getFullYear();
-      year <= endDate.getFullYear();
-      year++
-    ) {
-      const batchStart = new Date(year, 0, 1); // Start from Jan 1st of the year
-      let batchEnd = new Date(year, 11, 31); // End on Dec 31st of the year
-
-      // If the batchEnd is in the future, set it to the current date
-      if (batchEnd > new Date()) {
-        batchEnd = new Date();
+    let current = new Date(startDate);
+  
+    while (current <= endDate) {
+      const batchStart = current.toISOString().split('T')[0];
+      current.setMonth(current.getMonth() + 1);
+      let batchEnd = current;
+      // If batchEnd is in the future or beyond the endDate, set it to endDate
+      if (batchEnd > new Date() || batchEnd > endDate) {
+        batchEnd = endDate;
       }
-
+      batchEnd = batchEnd.toISOString().split('T')[0];
+  
       // Fetch and store data for the current batch
-      await fetchAndStoreHistoricalData(
-        batchStart.toISOString().split('T')[0],
-        batchEnd.toISOString().split('T')[0]
-      );
+      await fetchAndStoreHistoricalData(batchStart, batchEnd);
+      if (batchEnd === endDate.toISOString().split('T')[0]) break;
     }
   };
-
+  
   if (req.method === 'POST'){
     try {
       // Call the function to fetch data in yearly batches
