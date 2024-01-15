@@ -57,10 +57,13 @@ export default function Home() {
 
   const handleStartDateChange = (event) => {
     setStartDate(event.target.value);
+    // Set timeframe to 'custom' when start date is changed
+    setTimeframe('custom');
   };
-
   const handleEndDateChange = (event) => {
     setEndDate(event.target.value);
+    // Set timeframe to 'custom' when end date is changed
+    setTimeframe('custom');
   };
 
   const fetchData = async (timeframe, start, end) => {
@@ -95,8 +98,7 @@ export default function Home() {
 
   // Fetch data when component mounts and when timeframe, startDate, or endDate changes
   useEffect(() => {
-    if(
-      timeframe === 'custom' && startDate && endDate) {
+    if(timeframe === 'custom' && startDate && endDate) {
         fetchData(null, startDate, endDate);
         } else {
         fetchData(timeframe, null, null);

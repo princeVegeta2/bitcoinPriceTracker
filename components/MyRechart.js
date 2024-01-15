@@ -35,7 +35,7 @@ const MyRechart = ({ data }) => {
       />
       <Tooltip />
       <Legend />
-      <Line type="monotone" dataKey="price" stroke="#8884d8" activeDot={{ r: 8 }} />
+      <Line type="monotone" dataKey="price" stroke="#8884d8" dot={false} />
     </LineChart>
   );
 };

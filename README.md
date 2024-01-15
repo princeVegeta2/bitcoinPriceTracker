@@ -1,40 +1,57 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Bitcoin Price Tracker
 
-## Getting Started
+This web application allows the user to look at fresh, real bitcoin day-to-day data. 
 
-First, run the development server:
+## Functionality
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- "Last Day" button shows the price of bitcoin on the last calendar day"
+- "Last Week" button shows the price of bitcoin on the last calendar week"
+- "Last Month" button shows the price of bitcoin on the last calendar month"
+- "Last Year" button shows the price of bitcoin on the last calendar year"
+- "Update Database" button manually updates the database from the fresh data via coindesk api, starting from 2011-01-01 to the current day when the button is pressed."
+- The custom timeframe allows the user to choose the start date and end date. Then the chart will display the data between those two dates.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+## Prerequisites
+- "Node v20.10.0+"
+- "Npm v10.2.3+"
+- "node-fetch 3.3.2"
+- "pg 8.11.3"
+- "recharts 2.10.4"
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+## Launch
+- Open the project folder "my-bitcoin-app" in VSCode or any environment of your choice
+- In the terminal, run the following command: "npm run dev"
+- Go to http://localhost:3000 or another link shown in the terminal
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+## JS files
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+### MyRechart.js
+This file is using Recharts to contruct a basic chart with dates on the X axis and prices on the Y axis. 
 
-## Learn More
+### db.js
+This file has the data required to my PostgreSQL database
 
-To learn more about Next.js, take a look at the following resources:
+### bitcoin-data.js
+This is the file responsible for fetching the data from our database. It takes in the startDate and endDate values passed to it from the frontend(index.js) and locates and fetches that data from the table.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### fetch-bitcoin.js
+This is a redundant file, I only used it for testing. It simply takes 1 piece of data from the coindesk api(one day) and saves it in the database. Api link used: 'https://api.coindesk.com/v1/bpi/currentprice.json'
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+### fetch-historical-bitcoin.js
+This is the main data fetcher. It takes the data from the api:
+https://api.coindesk.com/v1/bpi/historical/close.json?start=${start}&end=${end}
+Taking in the start and end date, then saves it within our database. Its a crucial file in our "Update Database" button.
 
-## Deploy on Vercel
+### index.js
+This is our main file and page. It has all of the required functions to setDate, fetchData, etc. These are the functions:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- 'clearBitcoinData' - this function truncates the entire table. This is called in 'updateDatabase' function before updating our database to remove old data.
+- 'updateDatabase' - this function updates our database. It fetches historical bitcoin prices from Coindesk api via a POST request and saves it in our database for our use. First it calls 'clearBitcoinData' ofcourse, to truncate the table.
+- 'handleTimeFrameChange' - this function handles the timeframe change. 
+- 'handleStartDateChange' and 'handleEndDateChange' are the functions designed to handle the timeframe change of our custom timeframe where the user chooses their own timeframe.
+- 'fetchData' - this is the main function that fetches data from our database via the 'bitcoin-data.js' routing file and has error catching in place.
+- 'useEffect()' - this is what changes the data and calls 'fetchData' when the selected timeframe mounts.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+### Note
+You can change, use and experiment with this however you want. I know that the handling of the database is unorthodox, but this is what was required of me at the time. 
