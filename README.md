@@ -54,4 +54,4 @@ This is our main file and page. It has all of the required functions to setDate,
 - 'useEffect()' - this is what changes the data and calls 'fetchData' when the selected timeframe mounts.
 
 ### Note
-You can change, use and experiment with this however you want. I know that the handling of the database is unorthodox, but this is what was required of me at the time. 
+You can change, use and experiment with this however you want. I know that the handling of the database is unorthodox, but this is what was required of me at the time. Take a look at frontend.png to see how the website looks without running it.
