@@ -54,4 +54,6 @@ This is our main file and page. It has all of the required functions to setDate,
 - 'useEffect()' - this is what changes the data and calls 'fetchData' when the selected timeframe mounts.
 
 ### Note
-You can change, use and experiment with this however you want. I know that the handling of the database is unorthodox, but this is what was required of me at the time. Take a look at frontend.png to see how the website looks without running it.
+You can change, use and experiment with this however you want. I know that the handling of the database is unorthodox, but this is what was required of me at the time. App hosted via Vercel. I populated the database via my machine with complete data from 2011 to 2024 january, but since my Vercel account is free an api call is limited to 10 seconds. So if you press "Update Database" function, it will truncate the database and only save whatever data came through within 10 seconds. Set the timeframe from 2011-01-01 to current date to see the graph in such case.
+
+- https://bitcoin-price-tracker-mu.vercel.app/
