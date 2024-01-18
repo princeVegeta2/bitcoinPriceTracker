@@ -8,6 +8,7 @@ export default function Home() {
   const [endDate, setEndDate] = useState();
   const [chartData, setChartData] = useState([]);
 
+  // Deprecated. Was used to truncate database table
   const clearBitcoinData = async () => {
     try {
       const response = await fetch('/api/clear-bitcoin-data', { method: 'POST' });
@@ -23,12 +24,12 @@ export default function Home() {
   const updateDatabase = async () => {
     try {
       // First clear existing data
-      await clearBitcoinData();
+      // await clearBitcoinData();
   
-      // Then fetch new data
+      // fetch new data
       const endDate = new Date().toISOString().split('T')[0]; // Current date in 'YYYY-MM-DD' format
       const startDate = '2011-01-01'; // Start date for historical data
-      const fetchResponse = await fetch(`/api/fetch-historical-bitcoin?startDate=${startDate}&endDate=${endDate}`, {
+      const fetchResponse = await fetch(`/api/fetch-historical-bitcoin?endDate=${endDate}`, {
         method: 'POST',
       });
   

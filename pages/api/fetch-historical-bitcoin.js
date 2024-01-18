@@ -20,9 +20,16 @@ export default async function handler(req, res) {
     }
   }
 
+  const getLastEntryDate = async () => {
+    const result = await pool.query('SELECT MAX(date) as last_date FROM bitcoin_prices');
+    return result.rows[0].last_date;
+  };
+
   if (req.method === 'POST') {
     try {
-      await fetchAndStoreHistoricalData(startDate, endDate);
+      const lastEntryDate = await getLastEntryDate();
+      const newStartDate = lastEntryDate ? new Date(lastEntryDate).toISOString().split('T')[0] : '2011-01-01';
+      await fetchAndStoreHistoricalData(newStartDate, endDate);
       res.status(200).json({ message: 'Historical data fetched and stored.' });
     } catch (error) {
       console.error('Error fetching or storing historical Bitcoin prices:', error);

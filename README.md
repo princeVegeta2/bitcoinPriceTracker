@@ -8,7 +8,7 @@ This web application allows the user to look at fresh, real bitcoin day-to-day d
 - "Last Week" button shows the price of bitcoin on the last calendar week"
 - "Last Month" button shows the price of bitcoin on the last calendar month"
 - "Last Year" button shows the price of bitcoin on the last calendar year"
-- "Update Database" button manually updates the database from the fresh data via coindesk api, starting from 2011-01-01 to the current day when the button is pressed."
+- "Update Database" button manually updates the database from the fresh data via coindesk api, starting from last date entry on the database to the current day when the button is pressed."
 - The custom timeframe allows the user to choose the start date and end date. Then the chart will display the data between those two dates.
 
 
@@ -46,14 +46,13 @@ Taking in the start and end date, then saves it within our database. Its a cruci
 ### index.js
 This is our main file and page. It has all of the required functions to setDate, fetchData, etc. These are the functions:
 
-- 'clearBitcoinData' - this function truncates the entire table. This is called in 'updateDatabase' function before updating our database to remove old data.
-- 'updateDatabase' - this function updates our database. It fetches historical bitcoin prices from Coindesk api via a POST request and saves it in our database for our use. First it calls 'clearBitcoinData' ofcourse, to truncate the table.
+- 'updateDatabase' - this function updates our database. It fetches historical bitcoin prices from Coindesk api via a POST request and saves it in our database for our use. 
 - 'handleTimeFrameChange' - this function handles the timeframe change. 
 - 'handleStartDateChange' and 'handleEndDateChange' are the functions designed to handle the timeframe change of our custom timeframe where the user chooses their own timeframe.
 - 'fetchData' - this is the main function that fetches data from our database via the 'bitcoin-data.js' routing file and has error catching in place.
 - 'useEffect()' - this is what changes the data and calls 'fetchData' when the selected timeframe mounts.
 
 ### Note
-You can change, use and experiment with this however you want. I know that the handling of the database is unorthodox, but this is what was required of me at the time. App hosted via Vercel. I populated the database via my machine with complete data from 2011 to 2024 january, but since my Vercel account is free an api call is limited to 10 seconds. So if you press "Update Database" function, it will truncate the database and only save whatever data came through within 10 seconds. Set the timeframe from 2011-01-01 to current date to see the graph in such case.
+You can change, use and experiment with this however you want. I have populated the database using my machine with all of the data available via API from 2013 to 2024. You need to click "Update Database" to update it to your current date.
 
-- https://bitcoin-price-tracker-mu.vercel.app/
+https://bitcoin-price-tracker-mu.vercel.app/
