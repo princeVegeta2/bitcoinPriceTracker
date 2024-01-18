@@ -52,13 +52,7 @@ This is our main file and page. It has all of the required functions to setDate,
 - 'fetchData' - this is the main function that fetches data from our database via the 'bitcoin-data.js' routing file and has error catching in place.
 - 'useEffect()' - this is what changes the data and calls 'fetchData' when the selected timeframe mounts.
 
-<<<<<<< HEAD
 ### Note
 You can change, use and experiment with this however you want. I have populated the database using my machine with all of the data available via API from 2013 to 2024. You need to click "Update Database" to update it to your current date.
 
 https://bitcoin-price-tracker-mu.vercel.app/
-=======
-## Note
-You can change, use and experiment with this however you want. I know that the handling of the database is unorthodox, but this is what was required of me at the time. App hosted via Vercel. I populated the database via my machine with complete data from 2011 to 2024 january, but since my Vercel account is free an api call is limited to 10 seconds. So if you press "Update Database" function, it will truncate the database and only save whatever data came through within 10 seconds. Set the timeframe from 2011-01-01 to current date to see the graph in such case.
-- https://bitcoin-price-tracker-mu.vercel.app/
->>>>>>> 14f9c3b251f0996e285bc096070cee4c8972ec6c
