@@ -23,6 +23,8 @@ This web application allows the user to look at fresh, real bitcoin day-to-day d
 - Open the project folder "my-bitcoin-app" in VSCode or any environment of your choice
 - In the terminal, run the following command: "npm run dev"
 - Go to http://localhost:3000 or another link shown in the terminal
+- Alternatively you can use the Dockerfile, which will *build* the project automatically:
+- *docker build -t bitcoin-app .* and *docker run -p 3000:3000 bitcoin-app*
 
 ## JS files
 
